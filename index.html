@@ -1,11 +1,14 @@
-<div class="gr-wrapper">
-  <!-- Fonts -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRIDRUNNER — Running Will Never Be The Same</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
-    .gr-wrapper {
+    :root {
       --bg-dark: #0a0d12;
       --grid-line: rgba(0, 255, 170, 0.08);
       --accent-green: #00ffaa;
@@ -13,22 +16,29 @@
       --text-main: #f0f4f8;
       --text-muted: #8b9bb4;
       --border-hud: rgba(0, 255, 170, 0.25);
-      
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: 'Inter', sans-serif;
-      min-height: 90vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      overflow-x: hidden;
       position: relative;
-      overflow: hidden;
-      padding: 3rem 1.5rem;
-      border-radius: 8px;
     }
 
-    .gr-grid {
+    /* --- TACTICAL RADAR GRID BACKGROUND --- */
+    .tactical-background {
       position: absolute;
       inset: 0;
       background-size: 40px 40px;
@@ -38,32 +48,34 @@
       z-index: 1;
     }
 
-    .gr-vignette {
+    .vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(10, 13, 18, 0.3) 0%, rgba(10, 13, 18, 0.95) 85%);
+      background: radial-gradient(circle at center, rgba(10, 13, 18, 0.4) 0%, rgba(10, 13, 18, 0.95) 85%);
       z-index: 2;
     }
 
-    .gr-scanline {
+    .scanline {
       position: absolute;
       inset: 0;
       background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
       background-size: 100% 4px;
       z-index: 3;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.7;
     }
 
-    .gr-container {
+    /* --- HERO CONTAINER --- */
+    .hero-container {
       position: relative;
       z-index: 4;
-      max-width: 800px;
+      max-width: 820px;
       margin: 0 auto;
+      padding: 2.5rem 1.5rem;
       text-align: center;
     }
 
-    .gr-badge {
+    .hud-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -75,77 +87,85 @@
       border: 1px solid var(--border-hud);
       padding: 0.35rem 0.85rem;
       border-radius: 4px;
-      margin-bottom: 1.75rem;
+      margin-bottom: 2rem;
       text-transform: uppercase;
     }
 
-    .gr-dot {
+    .hud-dot {
       width: 8px;
       height: 8px;
       background-color: var(--accent-green);
       border-radius: 50%;
       box-shadow: 0 0 10px var(--accent-green);
-      animation: grPulse 1.8s infinite;
+      animation: pulse 1.8s infinite;
     }
 
-    @keyframes grPulse {
+    @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.3; transform: scale(0.85); }
     }
 
-    .gr-title {
+    h1 {
       font-family: 'Chakra Petch', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
       font-weight: 700;
       letter-spacing: 0.03em;
       line-height: 1.1;
       text-transform: uppercase;
       margin-bottom: 1rem;
-      color: #ffffff;
+      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .gr-subtitle {
+    .subheadline {
       font-family: 'Chakra Petch', sans-serif;
-      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
       color: var(--accent-cyan);
       letter-spacing: 0.04em;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
     }
 
-    .gr-body {
+    .body-copy {
       font-size: 1.05rem;
       line-height: 1.65;
       color: var(--text-muted);
-      max-width: 620px;
-      margin: 0 auto 2.2rem;
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
     }
 
-    .gr-form {
+    /* --- EMAIL CAPTURE FORM --- */
+    .signup-form {
       display: flex;
       flex-direction: row;
       justify-content: center;
       gap: 0.75rem;
-      max-width: 500px;
+      max-width: 520px;
       margin: 0 auto 2.5rem;
     }
 
-    .gr-input {
+    .email-input {
       flex: 1;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.25);
       border-radius: 4px;
       padding: 0.9rem 1.2rem;
-      color: #ffffff;
+      color: var(--text-main);
       font-size: 1rem;
       outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    .gr-input:focus {
+    .email-input:focus {
       border-color: var(--accent-green);
-      box-shadow: 0 0 12px rgba(0, 255, 170, 0.3);
+      box-shadow: 0 0 12px rgba(0, 255, 170, 0.25);
     }
 
-    .gr-btn {
+    .email-input::placeholder {
+      color: #4b5563;
+    }
+
+    .cta-button {
       background: var(--accent-green);
       color: #05100c;
       font-family: 'Chakra Petch', sans-serif;
@@ -155,75 +175,148 @@
       text-transform: uppercase;
       border: none;
       border-radius: 4px;
-      padding: 0.9rem 1.8rem;
+      padding: 0 1.75rem;
       cursor: pointer;
       box-shadow: 0 0 15px rgba(0, 255, 170, 0.35);
-      transition: all 0.2s ease;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
     }
 
-    .gr-btn:hover {
+    .cta-button:hover {
       background: #22ffb7;
       box-shadow: 0 0 25px rgba(0, 255, 170, 0.6);
       transform: translateY(-1px);
     }
 
-    .gr-footer {
+    /* --- FOOTER & SOCIAL ICONS --- */
+    .hud-footer {
       font-size: 0.85rem;
       color: #64748b;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      align-items: center;
+      gap: 1.2rem;
+      margin-top: 1rem;
     }
 
-    .gr-social {
-      color: var(--accent-cyan);
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(0, 255, 170, 0.25);
+      color: var(--text-main);
       text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .social-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      transition: transform 0.2s ease, fill 0.2s ease;
+    }
+
+    .social-btn:hover {
+      border-color: var(--accent-green);
+      background: rgba(0, 255, 170, 0.1);
+      box-shadow: 0 0 15px rgba(0, 255, 170, 0.35);
+      transform: translateY(-3px);
+      color: var(--accent-green);
+    }
+
+    .social-btn:hover svg {
+      transform: scale(1.15);
+    }
+
+    .social-handle-text {
+      color: var(--accent-cyan);
       font-weight: 600;
+      letter-spacing: 0.05em;
+      font-family: 'Chakra Petch', sans-serif;
     }
 
     @media (max-width: 600px) {
-      .gr-form {
+      .signup-form {
         flex-direction: column;
       }
-      .gr-btn {
-        width: 100%;
+      .cta-button {
+        padding: 0.9rem;
       }
     }
   </style>
+</head>
+<body>
 
-  <!-- Background Elements -->
-  <div class="gr-grid"></div>
-  <div class="gr-vignette"></div>
-  <div class="gr-scanline"></div>
+  <!-- BACKGROUND GRID & SCANLINES -->
+  <div class="tactical-background"></div>
+  <div class="vignette"></div>
+  <div class="scanline"></div>
 
-  <!-- Content Container -->
-  <div class="gr-container">
-    <div class="gr-badge">
-      <span class="gr-dot"></span>
+  <!-- MAIN HERO INTERFACE -->
+  <main class="hero-container">
+    <div class="hud-badge">
+      <span class="hud-dot"></span>
       COMM FREQUENCY: CALIBRATING TRANSMISSION
     </div>
 
-    <h1 class="gr-title">RUNNING WILL NEVER BE THE SAME.</h1>
-    <div class="gr-subtitle">Your pace dictates the story. Your choices decide who survives.</div>
+    <h1>RUNNING WILL NEVER BE THE SAME.</h1>
+    <h2 class="subheadline">Your pace dictates the story. Your choices decide who survives.</h2>
 
-    <p class="gr-body">
+    <p class="body-copy">
       <strong>Gridrunner</strong> turns every outdoor run and treadmill workout into a live, reactive audio mission. Evade patrols, disarm terminal grid threats, and build your compound through real-world physical output.
     </p>
 
-    <form class="gr-form" onsubmit="event.preventDefault(); alert('Transmission Received. Enlistment Logged.');">
+    <!-- EMAIL FORM -->
+    <form class="signup-form" onsubmit="event.preventDefault(); alert('Transmission Received. Enlistment Logged.');">
       <input 
         type="email" 
-        class="gr-input" 
+        class="email-input" 
         placeholder="Enter your email for early alpha access..." 
         required 
       />
-      <button type="submit" class="gr-btn">Enlist Now</button>
+      <button type="submit" class="cta-button">Enlist Now</button>
     </form>
 
-    <div class="gr-footer">
+    <footer class="hud-footer">
       <p>Coming soon to iOS & Android. Treadmill FTMS integration enabled.</p>
-      <p>Follow our deployment at <span class="gr-social">@Gridrunnerapp</span></p>
-    </div>
-  </div>
-</div>
+      
+      <!-- SOCIAL ICONS -->
+      <div class="social-links">
+        <!-- YouTube -->
+        <a href="https://youtube.com/@gridrunnerapp" target="_blank" rel="noopener noreferrer" class="social-btn" title="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://instagram.com/gridrunnerapp" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+
+        <!-- X / Twitter -->
+        <a href="https://x.com/gridrunnerapp" target="_blank" rel="noopener noreferrer" class="social-btn" title="X (Twitter)">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+
+        <!-- TikTok -->
+        <a href="https://tiktok.com/@gridrunnerapp" target="_blank" rel="noopener noreferrer" class="social-btn" title="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+
+      <p>Follow our deployment at <span class="social-handle-text">@Gridrunnerapp</span></p>
+    </footer>
+  </main>
+
+</body>
+</html>
