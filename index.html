@@ -1,0 +1,229 @@
+<div class="gr-wrapper">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    .gr-wrapper {
+      --bg-dark: #0a0d12;
+      --grid-line: rgba(0, 255, 170, 0.08);
+      --accent-green: #00ffaa;
+      --accent-cyan: #00d4ff;
+      --text-main: #f0f4f8;
+      --text-muted: #8b9bb4;
+      --border-hud: rgba(0, 255, 170, 0.25);
+      
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 3rem 1.5rem;
+      border-radius: 8px;
+    }
+
+    .gr-grid {
+      position: absolute;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      z-index: 1;
+    }
+
+    .gr-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(10, 13, 18, 0.3) 0%, rgba(10, 13, 18, 0.95) 85%);
+      z-index: 2;
+    }
+
+    .gr-scanline {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+      background-size: 100% 4px;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .gr-container {
+      position: relative;
+      z-index: 4;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .gr-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--accent-green);
+      background: rgba(0, 255, 170, 0.05);
+      border: 1px solid var(--border-hud);
+      padding: 0.35rem 0.85rem;
+      border-radius: 4px;
+      margin-bottom: 1.75rem;
+      text-transform: uppercase;
+    }
+
+    .gr-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-green);
+      animation: grPulse 1.8s infinite;
+    }
+
+    @keyframes grPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.85); }
+    }
+
+    .gr-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .gr-subtitle {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      color: var(--accent-cyan);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+    }
+
+    .gr-body {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 2.2rem;
+    }
+
+    .gr-form {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 0.75rem;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .gr-input {
+      flex: 1;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 4px;
+      padding: 0.9rem 1.2rem;
+      color: #ffffff;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .gr-input:focus {
+      border-color: var(--accent-green);
+      box-shadow: 0 0 12px rgba(0, 255, 170, 0.3);
+    }
+
+    .gr-btn {
+      background: var(--accent-green);
+      color: #05100c;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      padding: 0.9rem 1.8rem;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0, 255, 170, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .gr-btn:hover {
+      background: #22ffb7;
+      box-shadow: 0 0 25px rgba(0, 255, 170, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .gr-footer {
+      font-size: 0.85rem;
+      color: #64748b;
+      letter-spacing: 0.04em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .gr-social {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .gr-form {
+        flex-direction: column;
+      }
+      .gr-btn {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <!-- Background Elements -->
+  <div class="gr-grid"></div>
+  <div class="gr-vignette"></div>
+  <div class="gr-scanline"></div>
+
+  <!-- Content Container -->
+  <div class="gr-container">
+    <div class="gr-badge">
+      <span class="gr-dot"></span>
+      COMM FREQUENCY: CALIBRATING TRANSMISSION
+    </div>
+
+    <h1 class="gr-title">RUNNING WILL NEVER BE THE SAME.</h1>
+    <div class="gr-subtitle">Your pace dictates the story. Your choices decide who survives.</div>
+
+    <p class="gr-body">
+      <strong>Gridrunner</strong> turns every outdoor run and treadmill workout into a live, reactive audio mission. Evade patrols, disarm terminal grid threats, and build your compound through real-world physical output.
+    </p>
+
+    <form class="gr-form" onsubmit="event.preventDefault(); alert('Transmission Received. Enlistment Logged.');">
+      <input 
+        type="email" 
+        class="gr-input" 
+        placeholder="Enter your email for early alpha access..." 
+        required 
+      />
+      <button type="submit" class="gr-btn">Enlist Now</button>
+    </form>
+
+    <div class="gr-footer">
+      <p>Coming soon to iOS & Android. Treadmill FTMS integration enabled.</p>
+      <p>Follow our deployment at <span class="gr-social">@Gridrunnerapp</span></p>
+    </div>
+  </div>
+</div>
