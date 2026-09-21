@@ -277,14 +277,23 @@
       <strong>Gridrunner</strong> turns every outdoor run and treadmill workout into a live, reactive audio mission. Evade patrols, disarm terminal grid threats, and build your compound through real-world physical output.
     </p>
 
-    <!-- EMAIL FORM -->
-    <form class="signup-form" onsubmit="event.preventDefault(); alert('Transmission Received. Enlistment Logged.');">
+  <!-- EMAIL FORM (LINKED TO BREVO) -->
+    <form 
+      class="signup-form" 
+      action="https://3acc217c.sibforms.com/serve/MUIFAlwrMsnMW392RaoIPgxxuucENDhFyWEVG9DFFVgOZEL0K6zsKfkk61YwCo4u_3EDFvrPj1kxYqhEjCJVFTX2vmbZiIheOH3HzCU8re9xRlYRlsb8-aedY_mexDTDXtEe7S_hQDe0N17GksNo71t1ugfZy4Bsxj3pVh0SKzPUSICbBnvw_dRJgtUIghC6CpmpEDVj4t1t-4cFuA==" 
+      method="POST"
+    >
       <input 
         type="email" 
+        name="EMAIL" 
         class="email-input" 
         placeholder="Enter your email for early alpha access..." 
         required 
+        autocomplete="off"
       />
+      <!-- Brevo Bot Protection Honeypot -->
+      <input type="text" name="email_address_check" value="" class="input--hidden" style="display:none !important;" />
+      <input type="hidden" name="locale" value="en" />
       <button type="submit" class="cta-button">Enlist Now</button>
     </form>
 
