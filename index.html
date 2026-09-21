@@ -14,7 +14,6 @@
       --grid-line: rgba(0, 255, 170, 0.08);
       --accent-green: #00ffaa;
       --accent-cyan: #00d4ff;
-      --accent-red: #ff4444;
       --text-main: #f0f4f8;
       --text-muted: #8b9bb4;
       --border-hud: rgba(0, 255, 170, 0.25);
@@ -39,7 +38,6 @@
       position: relative;
     }
 
-    /* --- TACTICAL RADAR GRID BACKGROUND --- */
     .tactical-background {
       position: absolute;
       inset: 0;
@@ -67,7 +65,6 @@
       opacity: 0.7;
     }
 
-    /* --- HERO CONTAINER --- */
     .hero-container {
       position: relative;
       z-index: 4;
@@ -133,129 +130,9 @@
       line-height: 1.65;
       color: var(--text-muted);
       max-width: 640px;
-      margin: 0 auto 2rem;
-    }
-
-    /* --- TACTICAL AUDIO CONSOLE --- */
-    .audio-console {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid var(--border-hud);
-      border-radius: 6px;
-      padding: 1.25rem;
-      max-width: 580px;
       margin: 0 auto 2.5rem;
-      box-shadow: 0 0 25px rgba(0, 255, 170, 0.08);
-      text-align: left;
     }
 
-    .console-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Chakra Petch', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      color: var(--accent-cyan);
-      border-bottom: 1px solid rgba(0, 255, 170, 0.15);
-      padding-bottom: 0.6rem;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-    }
-
-    .cue-buttons {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.6rem;
-      margin-bottom: 1rem;
-    }
-
-    .cue-btn {
-      background: rgba(10, 13, 18, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      color: var(--text-muted);
-      font-family: 'Chakra Petch', sans-serif;
-      font-size: 0.82rem;
-      letter-spacing: 0.05em;
-      padding: 0.65rem 0.8rem;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s ease;
-      text-align: left;
-    }
-
-    .cue-btn:hover {
-      border-color: var(--accent-green);
-      color: var(--text-main);
-      background: rgba(0, 255, 170, 0.05);
-    }
-
-    .cue-btn.active {
-      border-color: var(--accent-green);
-      color: var(--accent-green);
-      background: rgba(0, 255, 170, 0.12);
-      box-shadow: 0 0 10px rgba(0, 255, 170, 0.2);
-    }
-
-    .cue-btn.danger.active {
-      border-color: var(--accent-red);
-      color: var(--accent-red);
-      background: rgba(255, 68, 68, 0.12);
-      box-shadow: 0 0 10px rgba(255, 68, 68, 0.2);
-    }
-
-    .audio-monitor {
-      background: rgba(10, 13, 18, 0.85);
-      border: 1px solid rgba(0, 255, 170, 0.15);
-      padding: 0.75rem 1rem;
-      border-radius: 4px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .track-info {
-      font-family: 'Chakra Petch', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      color: var(--accent-green);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .waveform-bars {
-      display: flex;
-      gap: 3px;
-      align-items: center;
-      height: 16px;
-    }
-
-    .bar {
-      width: 3px;
-      background: var(--accent-green);
-      height: 4px;
-      border-radius: 1px;
-      transition: height 0.1s ease;
-    }
-
-    .playing .bar {
-      animation: wave 0.8s ease-in-out infinite alternate;
-    }
-
-    .playing .bar:nth-child(2) { animation-delay: 0.15s; }
-    .playing .bar:nth-child(3) { animation-delay: 0.3s; }
-    .playing .bar:nth-child(4) { animation-delay: 0.45s; }
-    .playing .bar:nth-child(5) { animation-delay: 0.6s; }
-
-    @keyframes wave {
-      0% { height: 4px; }
-      100% { height: 16px; }
-    }
-
-    /* --- FORM & TACTICAL FEEDBACK --- */
     .form-wrapper {
       max-width: 520px;
       margin: 0 auto 2.5rem;
@@ -337,7 +214,6 @@
       color: #ff6b6b;
     }
 
-    /* --- FOOTER & SOCIAL ICONS --- */
     .hud-footer {
       font-size: 0.85rem;
       color: #64748b;
@@ -397,9 +273,6 @@
     }
 
     @media (max-width: 600px) {
-      .cue-buttons {
-        grid-template-columns: 1fr;
-      }
       .signup-form {
         flex-direction: column;
       }
@@ -418,7 +291,7 @@
   <main class="hero-container">
     <div class="hud-badge">
       <span class="hud-dot"></span>
-      COMM FREQUENCY: 449.025 MHz [ACTIVE]
+      COMM FREQUENCY: CALIBRATING TRANSMISSION
     </div>
 
     <h1>RUNNING WILL NEVER BE THE SAME.</h1>
@@ -428,43 +301,6 @@
       <strong>Gridrunner</strong> turns every outdoor run and treadmill workout into a live, reactive audio mission. Evade patrols, disarm terminal grid threats, and build your compound through real-world physical output.
     </p>
 
-    <!-- TACTICAL AUDIO PREVIEW CONSOLE -->
-    <section class="audio-console">
-      <div class="console-header">
-        <span>Tactical Comms Monitor</span>
-        <span>Mission 1: The Activation</span>
-      </div>
-
-      <div class="cue-buttons">
-        <button class="cue-btn active" data-src="audio/M1_01_INTRO.mp3" data-name="CUE 01: Handshake & Lock">
-          ▶ 01. Briefing
-        </button>
-        <button class="cue-btn" data-src="audio/M1_02_WARN.mp3" data-name="CUE 02: Velocity Window Breach">
-          ▶ 02. Pace Warning
-        </button>
-        <button class="cue-btn danger" data-src="audio/M1_03_SPRINT.mp3" data-name="CUE 03: Drone Intercept (Surge)">
-          ⚠ 03. Drone Threat
-        </button>
-        <button class="cue-btn" data-src="audio/M1_04_CLEAR.mp3" data-name="CUE 04: Sector Safe / Stand Down">
-          ▶ 04. Zone Clear
-        </button>
-      </div>
-
-      <div class="audio-monitor" id="audioMonitor">
-        <div class="track-info" id="trackStatus">STANDBY: SELECT TRANSMISSION</div>
-        <div class="waveform-bars" id="waveform">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-
-      <audio id="commsAudio" preload="none"></audio>
-    </section>
-
-    <!-- EMAIL CAPTURE -->
     <div class="form-wrapper">
       <div id="statusMessage" class="hud-banner"></div>
 
@@ -505,51 +341,16 @@
   </main>
 
   <script>
-    // --- AUDIO CONSOLE CONTROLLER ---
-    const audio = document.getElementById('commsAudio');
-    const cueBtns = document.querySelectorAll('.cue-btn');
-    const trackStatus = document.getElementById('trackStatus');
-    const waveform = document.getElementById('waveform');
-
-    cueBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const src = btn.getAttribute('data-src');
-        const name = btn.getAttribute('data-name');
-
-        cueBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        if (audio.src.includes(src) && !audio.paused) {
-          audio.pause();
-          trackStatus.innerText = 'PAUSED: ' + name;
-          waveform.classList.remove('playing');
-        } else {
-          audio.src = src;
-          audio.play().then(() => {
-            trackStatus.innerText = 'TRANSMITTING: ' + name;
-            waveform.classList.add('playing');
-          }).catch(err => {
-            trackStatus.innerText = 'STANDBY: TAP PLAY AGAIN';
-            waveform.classList.remove('playing');
-          });
-        }
-      });
-    });
-
-    audio.addEventListener('ended', () => {
-      waveform.classList.remove('playing');
-      trackStatus.innerText = 'TRANSMISSION COMPLETE';
-    });
-
-    // --- ASYNC FORMSPREE SUBMISSION & AUDIO TRIGGER ---
     const form = document.getElementById('waitlistForm');
     const emailInput = document.getElementById('emailInput');
     const submitBtn = document.getElementById('submitBtn');
     const statusMessage = document.getElementById('statusMessage');
+
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/meaoazeq";
 
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
+      
       const email = emailInput.value.trim();
       if (!email) return;
 
@@ -563,7 +364,9 @@
       try {
         const response = await fetch(FORMSPREE_ENDPOINT, {
           method: 'POST',
-          headers: { 'Accept': 'application/json' },
+          headers: {
+            'Accept': 'application/json'
+          },
           body: formData
         });
 
@@ -572,10 +375,9 @@
           statusMessage.innerText = "[ TRANSMISSION RECEIVED ] Frequency Confirmed. Operative enlisted.";
           emailInput.value = "";
 
-          // Play the registration transmission cue
-          const confirmAudio = new Audio('audio/enlisted.mp3');
-          confirmAudio.play().catch(err => {
-            console.log('Audio autoplay prevented or file path missing:', err);
+          // Play tactical radio transmission
+          new Audio('enlisted.mp3').play().catch(err => {
+            console.log('Audio playback prevented or missing:', err);
           });
 
         } else {
