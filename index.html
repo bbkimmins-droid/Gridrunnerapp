@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --bg-dark: #0a0d12;
@@ -134,14 +135,17 @@
       margin: 0 auto 2.5rem;
     }
 
-    /* --- EMAIL CAPTURE FORM --- */
+    /* --- TACTICAL FORM & FEEDBACK PANELS --- */
+    .form-wrapper {
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
     .signup-form {
       display: flex;
       flex-direction: row;
       justify-content: center;
       gap: 0.75rem;
-      max-width: 520px;
-      margin: 0 auto 2.5rem;
     }
 
     .email-input {
@@ -185,6 +189,36 @@
       background: #22ffb7;
       box-shadow: 0 0 25px rgba(0, 255, 170, 0.6);
       transform: translateY(-1px);
+    }
+
+    /* Tactical Alert Panels for Brevo Messages */
+    .sib-form-message-panel {
+      display: none;
+      font-family: 'Chakra Petch', sans-serif;
+      letter-spacing: 0.05em;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+    }
+
+    #success-message {
+      background: rgba(0, 255, 170, 0.1);
+      border: 1px solid var(--accent-green);
+      color: var(--accent-green);
+      box-shadow: 0 0 15px rgba(0, 255, 170, 0.2);
+    }
+
+    #error-message {
+      background: rgba(255, 68, 68, 0.1);
+      border: 1px solid #ff4444;
+      color: #ff6b6b;
+    }
+
+    /* Hide Bot Honeypot */
+    .input--hidden {
+      display: none !important;
     }
 
     /* --- FOOTER & SOCIAL ICONS --- */
@@ -277,25 +311,44 @@
       <strong>Gridrunner</strong> turns every outdoor run and treadmill workout into a live, reactive audio mission. Evade patrols, disarm terminal grid threats, and build your compound through real-world physical output.
     </p>
 
-  <!-- EMAIL FORM (LINKED TO BREVO) -->
-    <form 
-      class="signup-form" 
-      action="https://3acc217c.sibforms.com/serve/MUIFAlwrMsnMW392RaoIPgxxuucENDhFyWEVG9DFFVgOZEL0K6zsKfkk61YwCo4u_3EDFvrPj1kxYqhEjCJVFTX2vmbZiIheOH3HzCU8re9xRlYRlsb8-aedY_mexDTDXtEe7S_hQDe0N17GksNo71t1ugfZy4Bsxj3pVh0SKzPUSICbBnvw_dRJgtUIghC6CpmpEDVj4t1t-4cFuA==" 
-      method="POST"
-    >
-      <input 
-        type="email" 
-        name="EMAIL" 
-        class="email-input" 
-        placeholder="Enter your email for early alpha access..." 
-        required 
-        autocomplete="off"
-      />
-      <!-- Brevo Bot Protection Honeypot -->
-      <input type="text" name="email_address_check" value="" class="input--hidden" style="display:none !important;" />
-      <input type="hidden" name="locale" value="en" />
-      <button type="submit" class="cta-button">Enlist Now</button>
-    </form>
+    <!-- FORM WRAPPER -->
+    <div class="form-wrapper">
+      <!-- Success Banner -->
+      <div id="success-message" class="sib-form-message-panel">
+        [ TRANSMISSION RECEIVED ] Frequency Confirmed. You are on the Alpha waitlist.
+      </div>
+      
+      <!-- Error Banner -->
+      <div id="error-message" class="sib-form-message-panel">
+        [ TRANSMISSION FAILED ] Please check your email format and retry.
+      </div>
+
+      <!-- BREVO-LINKED FORM -->
+      <form 
+        id="sib-form" 
+        class="signup-form" 
+        method="POST" 
+        action="https://3acc217c.sibforms.com/serve/MUIFAIwrMsnMW392RaoIPgxxuucENDhFyWEVG9DFFVgOZEL0K6zsKfkk61YwCo4u_3EDFvrPj1kxYqhEjCJVFTX2vmbZilheOH3HzCU8re9xRlYRlsb8-aedY_mexDTDXtEe7S_hQDe0N17GksNo71t1ugfZy4Bsxj3pVh0SKzPUSlCbBnvw_dRJgtUlGhC6CpmpEDVj4t1t-4cFuA==" 
+        data-type="subscription"
+      >
+        <input 
+          type="email" 
+          id="EMAIL" 
+          name="EMAIL" 
+          class="email-input" 
+          placeholder="Enter your email for early alpha access..." 
+          required 
+          autocomplete="off" 
+          data-required="true"
+        />
+
+        <!-- Honeypot anti-spam & locale -->
+        <input type="text" name="email_address_check" value="" class="input--hidden" />
+        <input type="hidden" name="locale" value="en" />
+
+        <button class="cta-button" form="sib-form" type="submit">Enlist Now</button>
+      </form>
+    </div>
 
     <footer class="hud-footer">
       <p>Coming soon to iOS & Android. Treadmill FTMS integration enabled.</p>
@@ -326,6 +379,23 @@
       <p>Follow our deployment at <span class="social-handle-text">@Gridrunnerapp</span></p>
     </footer>
   </main>
+
+  <!-- BREVO VALIDATION & SUBMISSION ENGINE -->
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
+    window.LOCALE = 'en';
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+    window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank.";
+    window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+    window.translation = {
+      common: {
+        selectedList: '{quantity} list selected',
+        selectedLists: '{quantity} lists selected'
+      }
+    };
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
 </body>
 </html>
