@@ -316,7 +316,7 @@
         <input 
           type="email" 
           id="emailInput" 
-          name="EMAIL" 
+          name="email" 
           class="email-input" 
           placeholder="Enter your email for early alpha access..." 
           required 
@@ -356,14 +356,14 @@
     </footer>
   </main>
 
-  <!-- RELIABLE DIRECT SUBMISSION SCRIPT -->
+  <!-- NATIVE ASYNC FORMSPREE SUBMISSION SCRIPT -->
   <script>
     const form = document.getElementById('waitlistForm');
     const emailInput = document.getElementById('emailInput');
     const submitBtn = document.getElementById('submitBtn');
     const statusMessage = document.getElementById('statusMessage');
 
-    const BREVO_ENDPOINT = "https://3acc217c.sibforms.com/serve/MUIFAIwrMsnMW392RaoIPgxxuucENDhFyWEVG9DFFVgOZEL0K6zsKfkk61YwCo4u_3EDFvrPj1kxYqhEjCJVFTX2vmbZilheOH3HzCU8re9xRlYRlsb8-aedY_mexDTDXtEe7S_hQDe0N17GksNo71t1ugfZy4Bsxj3pVh0SKzPUSlCbBnvw_dRJgtUlGhC6CpmpEDVj4t1t-4cFuA==";
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/meaoazeq";
 
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -375,27 +375,34 @@
       submitBtn.innerText = "TRANSMITTING...";
       statusMessage.className = "hud-banner";
 
-      // Assemble payload matching Brevo expectations
       const formData = new FormData();
-      formData.append('EMAIL', email);
-      formData.append('email_address_check', '');
-      formData.append('locale', 'en');
+      formData.append('email', email);
 
       try {
-        // Send request in background mode (avoids CORS block & allows direct capture)
-        await fetch(BREVO_ENDPOINT, {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
           method: 'POST',
-          mode: 'no-cors',
+          headers: {
+            'Accept': 'application/json'
+          },
           body: formData
         });
 
-        // Display Green HUD Success Banner
-        statusMessage.className = "hud-banner success";
-        statusMessage.innerText = "[ TRANSMISSION RECEIVED ] Frequency Confirmed. Operative enlisted.";
-        emailInput.value = "";
+        if (response.ok) {
+          statusMessage.className = "hud-banner success";
+          statusMessage.innerText = "[ TRANSMISSION RECEIVED ] Frequency Confirmed. Operative enlisted.";
+          emailInput.value = "";
+        } else {
+          const data = await response.json();
+          statusMessage.className = "hud-banner error";
+          if (data && data.errors) {
+            statusMessage.innerText = "[ TRANSMISSION FAILED ] " + data.errors.map(err => err.message).join(", ");
+          } else {
+            statusMessage.innerText = "[ TRANSMISSION FAILED ] Check email format and retry.";
+          }
+        }
       } catch (err) {
         statusMessage.className = "hud-banner error";
-        statusMessage.innerText = "[ TRANSMISSION FAILED ] Please check your connection and retry.";
+        statusMessage.innerText = "[ TRANSMISSION FAILED ] Network error. Please retry.";
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "Enlist Now";
